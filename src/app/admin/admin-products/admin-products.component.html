@@ -1,0 +1,35 @@
+<p>
+  <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+</p>
+<p>
+  <input #query (keyup)="filter(query.value)" type="text" class="form-control" placeholder="Type to filter the name column...">
+</p>
+
+<ngx-datatable
+    #table
+    class="material"
+    [rows]="rows"
+    [columns]="columns"
+    [loadingIndicator]="loadingIndicator"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [limit]="10"
+    [reorderable]="reorderable">
+    <ngx-datatable-column name="Title">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Price">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value | currency:'USD':code }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <a [routerLink]="['/admin/products/', row.key]">Edit</a>
+      </ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>
